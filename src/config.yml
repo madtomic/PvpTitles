@@ -1,0 +1,70 @@
+############################################################
+# +------------------------------------------------------+ #
+# |                       UPDATES                        | #
+# +------------------------------------------------------+ #
+############################################################
+
+# Aviso de actualizacion disponible
+Alert: true
+# Actualizaciones automaticas del plugin
+Update: true
+
+############################################################
+# +------------------------------------------------------+ #
+# |                      KILLSTREAKS                     | #
+# +------------------------------------------------------+ #
+############################################################
+
+# Modificador para aumentar o disminuir la cantidad de puntos que recibes cuando tienes una racha de bajas
+Mod: 0.25
+# Formula: (Kills * mod) + 1 | (El resultado lo trunca al alza)
+#   - Ejemplo: [Segunda baja - Mod = 0.25] # (1 * 0.25 + 1) = (1.25) ~ (2) #
+#   - Os recomiendo que sea un valor entre 0 - 1
+
+############################################################
+# +------------------------------------------------------+ #
+# |                         CHAT                         | #
+# +------------------------------------------------------+ #
+############################################################
+
+# Nombre para los puntos que ganan los jugadores
+Tag: Fame
+# Color del titulo en el chat
+PrefixColor: green
+# Numero de jugadores que se mostraran en el chat
+Top: 5
+
+RankNames:
+    - None
+    - Hero
+    - Fierce Hero
+    - Mighty Hero
+    - Deadly Hero
+    - Terrifying Hero
+    - Conquering Hero
+    - Subjugating Hero
+    - Vanquishing He
+    - Renowned Hero
+    - Illustrious Hero
+    - Eminent Hero
+    - King's Hero
+    - Emperor's Hero
+    - Balthazar's Hero
+    - Legendary Hero
+ReqFame:
+    - 0
+    - 25
+    - 75
+    - 180
+    - 360
+    - 600
+    - 1000
+    - 1680
+    - 2800
+    - 4665
+    - 7750
+    - 12960
+    - 21600
+    - 36000
+    - 60000
+    - 100000

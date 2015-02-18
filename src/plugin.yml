@@ -1,0 +1,53 @@
+name: PvpTitles
+version: 0.4
+description: Consigue fantasticos titulos pvp
+
+author: julito
+authors: [mikeundead]
+
+main: es.jlh.pvptitles.plugin.PvpTitles
+
+commands:
+    pvpTitles:
+        description: Informacion del plugin
+        usage: /<command>
+        aliases: pvptitulos
+        permission: pvptitles.help
+    pvpRank:
+        description: Datos sobre tu rango actual
+        usage: /<command>
+        aliases: pvprango
+        permission: pvptitles.rank
+    pvpLadder:
+        description: Datos sobre todos los jugadores
+        usage: /<command>
+        aliases: pvpranking
+        permission: pvptitles.ladder
+    pvpReload:
+        description: Recargar el config del plugin
+        usage: /<command>        
+        permission: pvptitles.reload
+permissions:
+    pvptitles.*:
+        description: Consigue acceso a todos los comandos de PvPTitles
+        children:
+            - pvptitles.help: true            
+            - pvptitles.rank: true
+            - pvptitles.ladder: true
+            - pvptitles.reload: true
+            - pvptitles.chat: true
+    pvptitles.help:
+        description: Informacion del plugin
+        default: true
+    pvptitles.rank:
+        description: Datos sobre tu rango actual
+        default: true
+    pvptitles.ladder:
+        description: Ranking con los mejores jugadores
+        default: true
+    pvptitles.reload:
+        description: Recargar el config del plugin
+        default: op
+    pvptitles.chat:
+        description: No muestra el titulo PvP del jugador
+        default: false
