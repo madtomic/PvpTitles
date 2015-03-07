@@ -19,6 +19,11 @@ public class HandlePlayerPrefix implements Listener {
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
+        // Compruebo si el mundo esta en la lista de los vetados
+        if (this.databaseHandler.getMundos().contains(event.getPlayer().getWorld().getName().toLowerCase())) {
+            return;            
+        }
+        
         String rank = null;
 
         if (event.getPlayer().hasPermission("pvptitles.chat")) {            

@@ -1,12 +1,13 @@
 package es.jlh.pvptitles.plugin;
 
-import static es.jlh.pvptitles.plugin.PvpTitles.PLUGIN;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
-import java.util.logging.Level;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -22,8 +23,11 @@ public final class DatabaseHandler {
     private final Map<Integer,String> rankList = new HashMap();
     private final Map<Integer, Integer> reqFame = new HashMap();
     
-    /* Resto de valores a configurar */
+    // Array con los mundos NO permitidos
+    private final List<String> mundos = new ArrayList();
     
+    /* Resto de valores a configurar */
+       
     // Color del titulo en el chat
     public ChatColor prefixColor;
     // Nombre de los puntos
@@ -32,6 +36,12 @@ public final class DatabaseHandler {
     private int top;
     // Modificador de los puntos ganados en una racha de bajas
     private double mod;
+    // Maximo de bajas para el sistema antifarm
+    private int kills;
+    // Tiempo para volver a matar una vez superado el limite de bajas
+    private int timeV;
+    // Tiempo para limpiar las bajas realizadas a un jugador
+    private int timeL;
     // Variable para guardar si se va a actualizar o no
     private boolean update;
     // Variable para guardar si se va a avisar de las actualizaciones o no
@@ -89,6 +99,14 @@ public final class DatabaseHandler {
     }
 
     /**
+     * Metodo para recibir la lista negra de mundos
+     * @return List<String> con los mundos NO permitidos
+     */
+    public List<String> getMundos() {
+        return mundos;
+    }
+
+    /**
      * Metodo para recibir el numero de jugadores que se mostrara en el ranking
      * @return Entero con el numero de jugadores
      */
@@ -102,6 +120,30 @@ public final class DatabaseHandler {
      */
     public double getMod() {
         return this.mod;
+    }
+    
+    /**
+     * Metodo para recibir el numero de abajas maximo para el sistema antifarm
+     * @return Entero con las bajas
+     */
+    public int getKills() {
+        return kills;
+    }
+
+    /**
+     * Metodo para recibir el tiempo en segundos para el sistema de vetos
+     * @return Entero con los segundos
+     */
+    public int getTimeV() {
+        return timeV;
+    }
+
+    /**
+     * Metodo para recibir el tiempo en segundos para el sistema de limpieza
+     * @return Entero con los segundos
+     */
+    public int getTimeL() {
+        return timeL;
     }
     
     /**
@@ -225,15 +267,22 @@ public final class DatabaseHandler {
             this.reqFame.put(i, requFame.get(i));
         }
 
-        this.GetPrefixColor(config.getString("PrefixColor"));
-
+        this.GetPrefixColor(config.getString("PrefixColor"));   
+        
         this.tag = config.getString("Tag");
         
+        this.mundos.addAll(config.getStringList("Worlds"));
+        // Todos los mundos a minusculas
+        ListIterator<String> iterator = mundos.listIterator();
+        while (iterator.hasNext()) {
+            iterator.set(iterator.next().toLowerCase());
+        }
+        
         try {
-            this.top = config.getInt("Top");
+            this.top = config.getInt("Top");            
         }
         catch (Exception ex) {
-            pvpTitles.log.log(Level.INFO, "{0}Se ha establecido el ranking a 5 jugadores", PLUGIN);
+            pvpTitles.log.warning("Se ha establecido el ranking a 5 jugadores");
             this.top = 5;
         }
         
@@ -241,8 +290,32 @@ public final class DatabaseHandler {
             this.mod = config.getDouble("Mod");
         }
         catch (Exception ex) {
-            pvpTitles.log.log(Level.INFO, "{0}Se ha establecido el modificador a 0.25", PLUGIN);
+            pvpTitles.log.warning("Se ha establecido el modificador a 0.25");
             this.mod = 0.25;
+        }
+        
+        try {
+            this.kills = config.getInt("Kills");
+        }
+        catch (Exception ex) {
+            pvpTitles.log.warning("Se ha establecido el numero de bajas a 3");
+            this.kills = 3;
+        }
+        
+        try {
+            this.timeV = config.getInt("TimeV");
+        }
+        catch (Exception ex) {
+            pvpTitles.log.warning("Se ha establecido el tiempo de veto a 5 minutos");
+            this.timeV = 300;
+        }
+        
+        try {
+            this.timeL = config.getInt("TimeL");
+        }
+        catch (Exception ex) {
+            pvpTitles.log.warning("Se ha establecido el tiempo de limpieza a 5 minutos");
+            this.timeL = 300;
         }
         
         this.update = config.getBoolean("Update");

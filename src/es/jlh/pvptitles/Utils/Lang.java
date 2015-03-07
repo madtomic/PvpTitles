@@ -14,6 +14,8 @@ public enum Lang {
     COMMAND_ARGUMENTS("&4Te sobran argumentos!"),
     PLAYER_KILLED("&aHas matado a %killed% y has recibido %fameRec% de %tag%"),
     PLAYER_NEW_RANK("&bFelicidades! Ahora eres: %newRank%"),
+    VETO_STARTED("&4Has sido vetado y no conseguiras mas fama hasta dentro de %TIME% min"),
+    VETO_FINISHED("&cVeto finalizado"),
     RANK_INFO("&bRankUP: &fTe falta %rankup% de %tag% para conseguir %nextRank%");
 
     private final String value;

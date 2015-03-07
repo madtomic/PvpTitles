@@ -11,9 +11,28 @@ Update: true
 
 ############################################################
 # +------------------------------------------------------+ #
+# |                      MULTIWORLD                      | #
+# +------------------------------------------------------+ #
+############################################################
+
+# Lista de mundos en los que el plugin NO actuara
+Worlds:
+    - Example
+
+############################################################
+# +------------------------------------------------------+ #
 # |                      KILLSTREAKS                     | #
 # +------------------------------------------------------+ #
 ############################################################
+
+############# ANTI FARM #############
+# Numero maximo de muertes de un mismo player
+Kills: 3
+# Tiempo de veto (En segundos)
+TimeV: 300
+# Tiempo de limpieza de muertes por jugador (En segundos)
+TimeL: 300
+#####################################
 
 # Modificador para aumentar o disminuir la cantidad de puntos que recibes cuando tienes una racha de bajas
 Mod: 0.25

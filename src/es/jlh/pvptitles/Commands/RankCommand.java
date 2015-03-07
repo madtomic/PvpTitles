@@ -1,5 +1,7 @@
 package es.jlh.pvptitles.Commands;
 
+import es.jlh.pvptitles.Events.HandlePlayerFame;
+import static es.jlh.pvptitles.Events.HandlePlayerFame.racha;
 import es.jlh.pvptitles.Utils.Lang;
 import es.jlh.pvptitles.plugin.DatabaseHandler;
 import es.jlh.pvptitles.Utils.Ranks;
@@ -43,7 +45,8 @@ public class RankCommand implements CommandExecutor {
      * @param player Jugador que consulta los datos
      */
     private void HandleRankCmd(Player player) {        
-        int fame = this.databaseHandler.loadPlayerFame(player.getName());;
+        int fame = this.databaseHandler.loadPlayerFame(player.getName());
+        int racha = (HandlePlayerFame.racha.containsKey(player.getName())) ? HandlePlayerFame.racha.get(player.getName()) : 0;
         String rank = this.ranks.GetRank(fame);        
         int rankup = this.ranks.FameToRankUp();
         String nextRank = this.ranks.nextRankTitle();
@@ -53,6 +56,7 @@ public class RankCommand implements CommandExecutor {
         player.sendMessage(PLUGIN);
         player.sendMessage("  - " + ChatColor.AQUA + "Titulo: " + ChatColor.RESET + rank);
         player.sendMessage("  - " + ChatColor.AQUA + tag + ": " + ChatColor.RESET + fame);
+        player.sendMessage("  - " + ChatColor.AQUA + "Racha: " + ChatColor.RESET + racha);
         
         if(rankup < 999999) {
             player.sendMessage("  - " + Lang.RANK_INFO.getText().replace("%rankup%", String.valueOf(rankup))
